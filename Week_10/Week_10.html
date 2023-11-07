@@ -1,0 +1,137 @@
+<html>
+  <head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.1.9/p5.min.js"></script>
+    <script src="sketch.js"></script>
+  </head>
+  <head>
+    <script>
+        function setup() {
+  createCanvas(canva, canvaY);
+}
+let canva = 300
+let canvaY = 500
+
+let x = 140;
+let y = 225
+let z = 250
+let w = 105
+let u = 180
+let goleft = false
+let goright = false
+let godown = false
+let goup = false
+let diag = false
+let canvas = false
+var speedR= 1.6
+var speedL= 2
+
+function draw() {
+
+  background(220);
+  console.log("hi")
+  circle(x,200,123);
+  rect(w,u,20,20);
+  rect(155,z ,20,20);
+  triangle(130, y, 135, y, 155, 225);
+  point(115, 190);
+  point(165, 190);
+  line(105, 250, 35, 1000);
+  line(175, 250, 250, 1000);
+  textSize(20);
+  text('Jaron Shane', 175, 25);
+   textSize(17);
+  text('Average Newgrounds Character', 20, 45);
+  if(goleft == false){
+    x= x+1
+}
+if(goleft == true){
+    x=x-1
+}
+if(x>300)
+{
+    goleft= true
+}
+if(x<0){
+    goleft= false
+}
+
+
+if(godown == false){
+    y= y+ random(-speedR, speedL)
+}
+if(godown == true){
+    y=y- random(speedR, -speedL)
+}
+if(y>300)
+{
+    godown= true
+}
+if(y<0){
+    godown= false
+}
+
+if(goup == false){
+    z= z+1
+}
+if(goup == true){
+    z= z-1
+}
+if(z>300)
+{
+    goup= true
+}
+if(z<0){
+    goup= false
+}
+
+if(goup == false){
+    w= w+1
+}
+if(goup == true){
+    w= w-1
+}
+if(w>450)
+{
+    goup= true
+}
+if(w<0){
+    goup= false
+}
+
+if(diag == false){
+    u= u+1
+}
+if(diag == true){
+    u= u-1
+}
+if(u>450)
+{
+    diag= true
+}
+if(u<0){
+    diag= false
+}
+
+
+
+
+
+
+}
+
+{
+
+}
+
+
+
+
+    </script>
+
+
+  </head>
+  <body>
+  </body>
+
+  
+</html>
