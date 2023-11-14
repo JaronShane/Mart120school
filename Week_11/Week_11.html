@@ -1,0 +1,134 @@
+<html>
+  <head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.1.9/p5.min.js"></script>
+    <script src="sketch.js"></script>
+  </head>
+  <head>
+    <script>
+var x = 50;
+var y = 50;
+var A = 100;
+var B = 100;
+var C = 75
+var D = 85
+var R1 = 1.5
+var R2 = 2
+var diameter = 25;
+var mousex = 0;
+var mousey = 0;
+var reset = false
+
+function setup() {
+  createCanvas(320, 300);
+}
+
+function draw() {
+  background(0);
+  fill(500, 200, 29);
+  circle(x, y, 50);
+  rect(A, B, 50)
+  ellipse(C, D, 25, 35)
+  text('Exit', 275, 25);
+   textSize(20);
+if(reset = false){
+    A = 100
+}
+if(reset = true){
+    A = A+ random(R1, R2)
+}
+if(B>300){
+    reset = true
+}
+if(B<0){
+    reset = true
+}
+if(reset = false){
+    B = 100
+}
+if(reset = true){
+    B = B+ random(R1, R2)
+}
+if(B>300){
+    reset = true
+}
+if(B<0){
+    reset = true
+}
+
+
+
+
+if(reset = false){
+    C = 100
+}
+if(reset = true){
+    C = C- random(R1, R2)
+}
+if(C>300){
+    reset = true
+}
+if(C<0){
+    reset = true
+}
+if(reset = false){
+    D = 100
+}
+if(reset = true){
+    D = D+ random(R1, R2)
+}
+if(D>300){
+    reset = true
+}
+if(D<0){
+    reset = true
+}
+
+
+if (x >= 300) {
+    x = 50;
+  }
+  if (x <= 0) {
+    x = 50;
+  }
+
+  if (keyIsDown(83)) {
+    y += 10;
+  } else if (keyIsDown(87)) {
+    y -= 10;
+  }
+
+  if (y >= 300) {
+    y = 50;
+  }
+  if (y <= 0) {
+    y = 50;
+  }
+
+  if (diameter < 200) {
+    diameter += 2;
+  } else if (diameter >= 200) {
+    diameter = 25;
+  }
+  ellipse(mousex, mousey, 15, 50);
+}
+
+function keyPressed() {
+  if (key == "d") {
+    x += 75;
+  } else if (key == "a") {
+    x -= 75;
+  }
+}
+
+// change it so that you use mouseClicked and mousePressed
+function mouseMoved() {
+  mousex = mouseX;
+  mousey = mouseY;
+}
+function mouseClicked() {
+  mouseX = mouseX;
+  mouseY = mouseY
+}
+
+</script>
+</html>
