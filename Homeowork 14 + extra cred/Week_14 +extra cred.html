@@ -1,0 +1,204 @@
+<html>
+  <head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.1.9/p5.min.js"></script>
+    <script src="sketch.js"></script>
+  </head>
+  <head>
+    <script>
+let player;
+let maze;
+let exit;
+let staticShapes = [];
+let movingShapes = [];
+
+function setup() {
+  createCanvas(600, 400);
+  player = new Character();
+  maze = new Maze();
+  exit = createExit(width - 50, height - 50);
+
+  for (let i = 0; i < 5; i++) {
+    staticShapes.push(new StaticShape(random(width), random(height)));
+  }
+  for (let i = 0; i < 3; i++) {
+    movingShapes.push(new MovingShape(random(width), random(height)));
+  }
+}
+
+function draw() {
+  background(100);
+  player.update();
+  player.display();
+  maze.display();
+  exit.display();
+  for (let shape of staticShapes) {
+    shape.move();
+    shape.display();
+  if (player.collidesWith(shape)) {
+      gameOver();
+    }
+  }
+  for (let shape of movingShapes) {
+    shape.update();
+    shape.display();
+    if (player.collidesWith(shape)) {
+      gameOver();
+    }
+  }
+   if (player.collidesWith(exit)) {
+    winGame();
+  }
+}
+
+function mousePressed() {
+  staticShapes.push(new StaticShape(mouseX, mouseY));
+}
+function gameOver() {
+  alert("Game Over!");
+  player.reset();
+}
+function winGame() {
+  alert("You Win!");
+  player.reset();
+}
+
+function createExit(x, y) {
+  return {
+    x: x,
+    y: y,
+    size: 20,
+    display: function () {
+      fill(0, 255, 0);
+      text("Exit", this.x - 15, this.y + 5);
+    }
+  };
+}
+class Character {
+  constructor() {
+    this.x = 50;
+    this.y = height - 50;
+    this.size = 20;
+    this.speed = 3;
+  }
+
+  update() {
+    if (keyIsDown(UP_ARROW)) this.y -= this.speed;
+    if (keyIsDown(DOWN_ARROW)) this.y += this.speed;
+    if (keyIsDown(LEFT_ARROW)) this.x -= this.speed;
+    if (keyIsDown(RIGHT_ARROW)) this.x += this.speed;
+
+    
+    this.x = constrain(this.x, 0, width - this.size);
+    this.y = constrain(this.y, 0, height - this.size);
+  }
+
+  display() {
+    fill(255, 50, 0);
+    rect(this.x, this.y, this.size, this.size);
+  }
+
+  collidesWith(other) {
+    return (
+      this.x < other.x + other.size &&
+      this.x + this.size > other.x &&
+      this.y < other.y + other.size &&
+      this.y + this.size > other.y
+    );
+  }
+
+  reset() {
+    this.x = 50;
+    this.y = height - 50;
+  }
+}
+
+class Maze {
+  constructor() {
+    this.walls = [
+      { x: 50, y: 50, width: 30, height: height - 250 },
+      { x: 220, y: 0, width: 20, height: height - 150 },
+      { x: 350, y: 100, width: 5, height: height - 88 },
+      { x: 200, y: 0, width: 10, height: height - 43 },
+    ];
+  }
+
+  display() {
+    fill(50);
+    for (let wall of this.walls) {
+      rect(wall.x, wall.y, wall.width, wall.height);
+    }
+  }
+}
+
+class StaticShape {
+  constructor(x, y) {
+    this.x = x;
+    this.y = y;
+    this.size = 20;
+    this.speedX = random(1, 3);
+    this.speedY = random(1, 3);
+  }
+
+  move() {
+    
+    this.x += this.speedX;
+    this.y += this.speedY;
+    if (this.x > width) {
+      this.x = 0;
+    } else if (this.x < 0) {
+      this.x = width;
+    }
+  if (this.y > height) {
+      this.y = 0;
+    } else if (this.y < 0) {
+      this.y = height;
+    }
+  }
+
+  display() {
+    fill(0, 300, 255);
+    ellipse(this.x, this.y, this.size, this.size);
+  }
+}
+
+class MovingShape {
+  constructor(x, y) {
+    this.x = x;
+    this.y = y;
+    this.size = 20;
+    this.speedX = random(-1, 1);
+    this.speedY = random(-1, 1);
+  }
+
+  update() {
+    this.x += this.speedX;
+    this.y += this.speedY;
+
+    if (this.x > width) {
+      this.x = 0;
+    } else if (this.x < 0) {
+      this.x = width;
+    }
+
+    if (this.y > height) {
+      this.y = 0;
+    } else if (this.y < 0) {
+      this.y = height;
+    }
+  }
+
+  display() {
+    fill(300, 300, 300);
+    rect(this.x, this.y, this.size, this.size);
+  }
+}
+
+
+
+
+
+
+
+
+</script>
+</head>
